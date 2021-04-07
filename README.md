@@ -117,5 +117,48 @@ You sent me: Hello from Raspberry Pi!
 You sent me: Hello from Raspberry Pi!
 You sent me: Hello from Raspberry Pi!
 ```
+
+## Envoyer les mesures du gyroscope
+
+Sur la console Arduino, on écrit le code suivant :
+
+```arduino
+#include "MeMegaPi.h"
+#include <Wire.h>
+MeGyro gyro;
+void setup()
+{
+  Serial2.begin(115200);
+  gyro.begin();
+}
+void loop()
+{
+  gyro.update();
+  Serial2.read();
+  Serial2.print("X:");
+  Serial2.print(gyro.getAngleX() );
+  Serial2.print(" Y:");
+  Serial2.print(gyro.getAngleY() );
+  Serial2.print(" Z:");
+  Serial2.println(gyro.getAngleZ() );
+  delay(10);
+}
+```
+
+Puis on téléverse. En lançant le programe python de lecture `readSerial.py`, on observe le résultat suivant :
+```bash
+$ ./test.py 
+X:2.38 Y:-0.19 Z:31.06
+X:2.37 Y:-0.19 Z:31.06
+X:2.37 Y:-0.19 Z:31.06
+X:2.37 Y:-0.20 Z:31.06
+X:2.37 Y:-0.19 Z:31.06
+X:2.37 Y:-0.19 Z:31.06
+X:2.37 Y:-0.19 Z:31.05
+X:2.36 Y:-0.19 Z:31.06
+```
+
+En manipulant le robot, les mesures changent. L'angle qui nous intéresse ici est Z, qui représente la rotation autour de l'axe vertical.
+
 ## Comandes X,Y du robot
 *Victorine ; Sacha ; Martin*
