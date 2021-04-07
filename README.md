@@ -51,5 +51,31 @@ if __name__ == '__main__':
             print(line)
 ```
 
+Depuis la console Arduino du PC connecté en USB, on téléverse le code suivant :
+```arduino
+void setup() {
+  Serial1.begin(115200);
+  Serial2.begin(115200);
+  Serial3.begin(115200);
+  Serial.begin(115200);
+}
+void loop() {
+  Serial.println("Hello from Serial");
+  Serial1.println("Hello from Serial1");
+  Serial2.println("Hello from Serial2");
+  Serial3.println("Hello from Serial3");
+  delay(1000);
+}
+```
+
+En lançant le programe python sur le raspberry, on constate que la chaine de caractère reçue est celle passée dans le port Serial2 :
+
+```bash
+$ ./test.py 
+Hello from Serial2
+Hello from Serial2
+Hello from Serial2
+```
+
 ## Comandes X,Y du robot
 *Victorine ; Sacha ; Martin*
