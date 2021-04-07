@@ -77,5 +77,45 @@ Hello from Serial2
 Hello from Serial2
 ```
 
+Dans la mêeme idée, on tente de d'emettre un message depuis le rapsberry vers le arduino, de le réceptionner et de renvoyer une réponse.
+Sur la console arduino :
+
+```arduino
+void setup() {
+  Serial2.begin(115200);
+}
+
+void loop() {
+  if (Serial2.available() > 0) {
+    String data = Serial2.readStringUntil('\n');
+    Serial2.print("You sent me: ");
+    Serial2.println(data);
+  }
+}
+```
+
+Sur le raspberry :
+```python
+#!/usr/bin/env python3
+import serial
+import time
+if __name__ == '__main__':
+    ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)
+    ser.flush()
+    while True:
+        ser.write(b"Hello from Raspberry Pi!\n")
+        line = ser.readline().decode('utf-8').rstrip()
+        print(line)
+        time.sleep(1)
+
+```
+
+Quand on lance le programme d'envoie / réception, on a le résultat suivant :
+```bash
+$ ./bi-directional.py 
+You sent me: Hello from Raspberry Pi!
+You sent me: Hello from Raspberry Pi!
+You sent me: Hello from Raspberry Pi!
+```
 ## Comandes X,Y du robot
 *Victorine ; Sacha ; Martin*
