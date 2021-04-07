@@ -30,10 +30,25 @@ Une fois connecté en ssh avec la commande `ssh robot1`, on configure le port se
 
 Port serial configuré :
 ```bash
-$ ls -l /dev/ | grep ttyAMA0
-lrwxrwxrwx  1 root root           7 avril  7 09:33 serial1 -> ttyAMA0
-crw-rw----  1 root dialout 204,  64 avril  7 09:34 ttyAMA0
+pi@raspberrypi:/boot $ ls -l /dev/ | grep ttyS0
+lrwxrwxrwx  1 root root           5 avril  7 09:33 serial0 -> ttyS0
+crw-rw----  1 root dialout   4,  64 avril  7 09:33 ttyS0
+```
 
+On utilisera le port Serial ttyS0 pour la suite.
+
+Sur le Raspberry pi, on créé le programme python suivant :
+
+```python
+#!/usr/bin/env python3
+import serial
+if __name__ == '__main__':
+    ser = serial.Serial('/dev/ttyS0', 125200, timeout=1)
+    ser.flush()
+    while True:
+        if ser.in_waiting > 0:
+            line = ser.readline().decode('utf-8').rstrip()
+            print(line)
 ```
 
 ## Comandes X,Y du robot
