@@ -7,13 +7,15 @@ import serial
 
 def main():
     ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)
+    ser.flush()
     hedge = setup()
     while True:
         try:
             if ser.in_waiting > 0:
                 line = ser.readline().decode('utf-8').rstrip()
-                print(line, ser.in_waiting)
-                print(readGPS(hedge))
+                angle = line.split(' ')[0][2::]
+                result = readGPS(hedge)[1:4] + [angle]
+                print('X:' + result[0] + ' Y:' + result[1] + ' Z:' + result[2] + ' θ:' + result[3])
         except KeyboardInterrupt:
             hedge.stop()  # stop and close serial port
             sys.exit()
