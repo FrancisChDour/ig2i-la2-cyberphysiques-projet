@@ -13,7 +13,7 @@ def main():
         try:
             if ser.in_waiting > 0:
                 line = ser.readline().decode('utf-8').rstrip()
-                angle = line.split(' ')[0][2::]
+                angle = line.split(' ')[2][2::]
                 result = readGPS(hedge)[1:4] + [angle]
                 print('X:{} Y:{} Z:{} θ:{}'.format(result[0], result[1], result[2], result[3]))
         except KeyboardInterrupt:
