@@ -6,34 +6,28 @@ import sys
 import serial
 
 def main():
-    readGPS();
-
-def readGPS():
-    hedge = MarvelmindHedge(tty = "/dev/ttyACM0", adr=None, debug=False) # create MarvelmindHedge thread
-    
-    if (len(sys.argv)>1):
-        hedge.tty= sys.argv[1]
-    
-    hedge.start() # start thread
-    while True:
+    ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)
+    hedge = setup()
+    while true:
+        ser.flush()
         try:
-            hedge.dataEvent.wait(1)
-            hedge.dataEvent.clear()
-
-            if (hedge.positionUpdated):
-                hedge.print_position()
-                
+            if ser.in_waiting > 0:
+                line = ser.readline().decode('utf-8').rstrip()
+                print(line)
+            print(readGPS(hedge))
         except KeyboardInterrupt:
             hedge.stop()  # stop and close serial port
             sys.exit()
 
-def readGyro():
-    ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)
-    ser.flush()
-    while True:
-        if ser.in_waiting > 0:
-            line = ser.readline().decode('utf-8').rstrip()
-            print(line)
+def readGPS(hedge):
+    return hedge.position()
 
+
+def setup():
+    hedge = MarvelmindHedge(tty="/dev/ttyACM0", adr=None, debug=False)  # create MarvelmindHedge thread
+    if (len(sys.argv) > 1):
+        hedge.tty = sys.argv[1]
+    hedge.start()
+    return hedge
 
 main()
