@@ -93,7 +93,7 @@ def correction(position_x, position_y, return_position_x, return_position_y):
 def teta(xa, ya, xb, yb):
     x = xb - xa
     y = yb - ya
-    return degrees(acos(y/sqrt(x**2+y**2)) - (pi/2))
+    return degrees(acos(y/sqrt(x**2+y**2)) - (pi/2) + 2*pi)
 
 def calibrage():
     global tetaC
@@ -142,7 +142,7 @@ def droitAuBut(x, y):
     borne = 0.1
     pos = readGPS()
     print("J'avance")
-    move(-100,-100)
+    move(100,100)
     flag = (pos[1] < x +borne and pos[1] > x -borne) and (pos[2] < y +borne and pos[2] > y -borne)
     print(flag)
     while not flag:
