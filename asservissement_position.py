@@ -26,13 +26,15 @@ def main():
     sleep(1)
     print("Tourniquet")
     tourniquet(5, 0)
-    move(-250, 250)
-    for i in range (20):
-        position = readGPS()
-        result = position[1:4]
-        print('X:{} Y:{} Z:{}'.format(result[0], result[1], result[2]))
-        sleep(0.5)
-    move(0, 0)
+    print("Droit au but")
+    droitAuBut(5,0)
+    # move(-250, 250)
+    # for i in range (20):
+    #     position = readGPS()
+    #     result = position[1:4]
+    #     print('X:{} Y:{} Z:{}'.format(result[0], result[1], result[2]))
+    #     sleep(0.5)
+    # move(0, 0)
 
 def marchePo():
     ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)
