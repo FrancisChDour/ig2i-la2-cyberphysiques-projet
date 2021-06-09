@@ -14,6 +14,7 @@ def move(v1, v2):
 
 left = 0
 right = 0
+setup()
 
 while True:
     k = input()
