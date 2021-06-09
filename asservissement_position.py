@@ -4,7 +4,7 @@ from marvelmind import MarvelmindHedge
 from time import sleep
 import sys
 import serial
-from math import cos, sin, acos, sqrt, degrees
+from math import cos, sin, acos, sqrt, degrees, pi
 import re
 
 HEDGE_ID = 50
@@ -100,7 +100,7 @@ def correction(position_x, position_y, return_position_x, return_position_y):
 def teta(xa, ya, xb, yb):
     x = xb - xa
     y = yb - ya
-    return degrees(acos(x/sqrt(x**2+y**2)))
+    return degrees(acos(y/sqrt(x**2+y**2)) - (pi/2))
 
 def calibrage():
     global tetaC
