@@ -26,8 +26,8 @@ def main():
     sleep(1)
     print("Tourniquet")
     tourniquet(5, 0)
-    print("Droit au but")
-    droitAuBut(5,0)
+    # print("Droit au but")
+    # droitAuBut(5,0)
     # move(-250, 250)
     # for i in range (20):
     #     position = readGPS()
