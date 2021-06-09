@@ -102,13 +102,12 @@ def calibrage():
     print("lastPosition : ", last_position)
     t = teta(first_position[1], first_position[2], last_position[1], last_position[2])
     print("Teta : ", t)
-    tetaC=t
+    tetaC = t
 
 def tourniquet(x, y):
     global angle_resultat
     first_position = readGPS()
     to = teta(first_position[1], first_position[2], x, y)
-    print(t)
     angle_resultat = to - tetaC
     gyro_response = ser.readline().decode('utf-8').rstrip()
     while len(gyro_response) < 21:
