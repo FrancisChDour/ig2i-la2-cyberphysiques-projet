@@ -4,8 +4,9 @@ from marvelmind import MarvelmindHedge
 from time import sleep
 import sys
 import serial
-from math import cos, sin, acos, sqrt, degrees, pi
+from math import cos, sin, acos, sqrt, degrees, pi, radians, atan2
 import re
+
 
 HEDGE_ID = 50
 GAIN_K = 0.66
@@ -25,7 +26,7 @@ def main():
     calibrage()
     sleep(1)
     print("Tourniquet")
-    tourniquet(5, 0)
+    tourniquet(5,0)
     print("Droit au but")
     droitAuBut(5,0)
 
@@ -93,7 +94,7 @@ def correction(position_x, position_y, return_position_x, return_position_y):
 def teta(xa, ya, xb, yb):
     x = xb - xa
     y = yb - ya
-    return degrees(acos(y/sqrt(x**2+y**2)) - (pi/2))
+    return atan2(y,x)
 
 def calibrage():
     global tetaC
@@ -115,22 +116,24 @@ def tourniquet(x, y):
     first_position = readGPS()
     to = teta(first_position[1], first_position[2], x, y)
     angle_resultat = to - tetaC
+    print("aled")
     gyro_response = ser.readline().decode('utf-8').rstrip()
     while len(gyro_response) < 21:
         gyro_response = ser.readline().decode('utf-8').rstrip()
     print(gyro_response)
-    angle_gyro = float(gyro_response.split(' ')[2][2::])
+    angle_gyro = radians(float(gyro_response.split(' ')[2][2::]))
+    print("aled")
     move(50, -50)
-    while angle_gyro < angle_resultat - 1 or angle_gyro > angle_resultat + 1:
+    while angle_gyro < angle_resultat - 0.01 or angle_gyro > angle_resultat + 0.01:
+        print("aled")
         gyro_response = ser.readline().decode('utf-8').rstrip()
         while len(gyro_response) < 21:
             gyro_response = ser.readline().decode('utf-8').rstrip()
-        angle_gyro = float(gyro_response.split(' ')[2][2::])
+        angle_gyro = radians(float(gyro_response.split(' ')[2][2::]))
         print("Current angle: {}, Goal angle: {}".format(angle_gyro, angle_resultat))
         position = readGPS()
         result = position[1:4] + [angle_gyro]
         print('X:{} Y:{} Z:{} θ:{}'.format(result[0], result[1], result[2], result[3]))
-        #print("Borne moins: {}, Borne plus: {}, angle_gyro < angle_resultat - 10: {}, angle_gyro > angle_resultat + 10: {}".format(angle_resultat-5, angle_resultat+5,angle_gyro < angle_resultat - 5,angle_gyro > angle_resultat + 5))
     move(0, 0)
     sleep(3)
 
