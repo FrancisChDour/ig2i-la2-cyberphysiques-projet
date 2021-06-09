@@ -26,15 +26,8 @@ def main():
     sleep(1)
     print("Tourniquet")
     tourniquet(5, 0)
-    # print("Droit au but")
-    # droitAuBut(5,0)
-    # move(-250, 250)
-    # for i in range (20):
-    #     position = readGPS()
-    #     result = position[1:4]
-    #     print('X:{} Y:{} Z:{}'.format(result[0], result[1], result[2]))
-    #     sleep(0.5)
-    # move(0, 0)
+    print("Droit au but")
+    droitAuBut(5,0)
 
 def marchePo():
     ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)
@@ -100,7 +93,7 @@ def correction(position_x, position_y, return_position_x, return_position_y):
 def teta(xa, ya, xb, yb):
     x = xb - xa
     y = yb - ya
-    return degrees(acos(y/sqrt(x**2+y**2)) - (pi/2))
+    return degrees(acos(y/sqrt(x**2+y**2)) + (pi/2))
 
 def calibrage():
     global tetaC
