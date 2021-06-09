@@ -141,6 +141,17 @@ def tourniquet(x, y):
 
 
 def move(v1, v2):
-    ser.write("{},{}".format(v1,v2).encode('utf-8'))
+    ser.write("{},{}".format(-v1,v2).encode('utf-8'))
+
+def droitAuBut(x, y):
+    pos = readGPS()
+    print("J'avance")
+    move(100,100)
+    while True:
+        print(pos)
+        print("x:{} y:{}", pos[1], pos[4])
+        print((pos[1] < x +1 and pos[1] > x -1) and (pos[4] < y +1 and pos[4] > y -1))
+        pos = readGPS()
+        sleep(0.1)
 
 main()
