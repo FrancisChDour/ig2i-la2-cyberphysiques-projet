@@ -127,6 +127,7 @@ def tourniquet(x, y):
 def move(v1, v2):
     ser.write("{},{}".format(v1,v2).encode('utf-8'))
 
+setup()
 calibrage()
 sleep(1)
 tourniquet(5, 0)
