@@ -114,7 +114,7 @@ def tourniquet(x, y):
         gyro_response = ser.readline().decode('utf-8').rstrip()
     print(gyro_response)
     angle_gyro = float(gyro_response.split(' ')[2][2::])
-    move(50, -50)
+    move(100, 100)
     while angle_resultat - 5 < angle_gyro or angle_resultat + 5 > angle_gyro:
         while len(gyro_response) < 21:
             gyro_response = ser.readline().decode('utf-8').rstrip()
