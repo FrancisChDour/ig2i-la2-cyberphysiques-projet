@@ -115,15 +115,15 @@ def tourniquet(x, y):
     print(gyro_response)
     angle_gyro = float(gyro_response.split(' ')[2][2::])
     move(50, 50)
-    while angle_gyro < angle_resultat - 5 or angle_gyro > angle_resultat + 5:
+    while angle_gyro < angle_resultat - 2 or angle_gyro > angle_resultat + 2:
         gyro_response = ser.readline().decode('utf-8').rstrip()
         while len(gyro_response) < 21:
             gyro_response = ser.readline().decode('utf-8').rstrip()
         angle_gyro = float(gyro_response.split(' ')[2][2::])
         print("Current angle: {}, Goal angle: {}".format(angle_gyro, angle_resultat))
-        print("Borne moins: {}, Borne plus: {}, angle_gyro < angle_resultat - 10: {}, angle_gyro > angle_resultat + 10: {}".format(angle_resultat-5, angle_resultat+5,angle_gyro < angle_resultat - 5,angle_gyro > angle_resultat + 5))
+        #print("Borne moins: {}, Borne plus: {}, angle_gyro < angle_resultat - 10: {}, angle_gyro > angle_resultat + 10: {}".format(angle_resultat-5, angle_resultat+5,angle_gyro < angle_resultat - 5,angle_gyro > angle_resultat + 5))
     move(0, 0)
-    sleep(1)
+    sleep(3)
 
 
 def move(v1, v2):
