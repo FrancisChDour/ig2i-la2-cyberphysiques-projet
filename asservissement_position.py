@@ -137,5 +137,9 @@ calibrage()
 sleep(1)
 tourniquet(5, 0)
 move(-250, 250)
-sleep(6)
+for i in range (12):
+    position = readGPS()
+    result = position[1:4] + [angle_gyro]
+    print('X:{} Y:{} Z:{} θ:{}'.format(result[0], result[1], result[2], result[3]))
+    sleep(0.5)
 move(0, 0)
