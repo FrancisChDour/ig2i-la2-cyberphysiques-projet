@@ -104,7 +104,7 @@ def calibrage():
     global tetaC
     sleep(2)
     first_position = readGPS()
-    move(-400, 400)
+    move(400, 400)
     sleep(5)
     move(0, 0)
     sleep(2)
