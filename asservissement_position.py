@@ -104,7 +104,7 @@ def calibrage():
     global tetaC
     sleep(2)
     first_position = readGPS()
-    move(400, 400)
+    move(200, 200)
     sleep(5)
     move(0, 0)
     sleep(2)
@@ -141,6 +141,6 @@ def tourniquet(x, y):
 
 
 def move(v1, v2):
-    ser.write("{},{}".format(v1,v2).encode('utf-8'))
+    ser.write("{},{}".format(-v1,-v2).encode('utf-8'))
 
 main()
