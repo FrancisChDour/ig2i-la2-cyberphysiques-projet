@@ -1,4 +1,4 @@
-*#!/usr/bin/env python3
+#!/usr/bin/env python3
 
 from marvelmind import MarvelmindHedge
 from time import sleep
@@ -19,7 +19,7 @@ tetaC = None
 def main():
 	setup()
 	calibrage()
-	tourniquet(5,0)
+	#tourniquet(5,0)
 
 def marchePo():
     ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)
@@ -88,26 +88,27 @@ def teta(xa, ya, xb, yb):
     return degrees(acos(x/sqrt(x**2+y**2)))
 
 def calibrage():
+    global tetaC
     sleep(2)
     firstPosition = readGPS()
     moove(-200,200)
     sleep(5)
-    ser.write("0,0".encode('utf-8'))
+    moove(0,0)
     sleep(2)
     lastPosition = readGPS()
-    print(firstPosition)
-    print(lastPosition)
+    print("firstPosition : ", firstPosition)
+    print("lastPosition : ", lastPosition)
     t = teta(firstPosition[1], firstPosition[2], lastPosition[1], lastPosition[2])
-    print(t)
-    global tetaC = t
+    print("Teta : ", t)
+    tetaC=t
 
 def tourniquet(x, y):
 	firstP = readGPS()
 	to = teta(firstP[1], firstP[2], x, y)
 	print(t)
 	tf = to - tetaC
-	print("tf:{}".format(tf))
-	
+	print("tf: ", tf)
+
 def moove(v1,v2):
 	ser.write("{},{}".format(v1,v2).encode('utf-8'))
 
