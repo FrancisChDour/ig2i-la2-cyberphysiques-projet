@@ -123,6 +123,7 @@ def tourniquet(x, y):
         print("Current angle: {}, Goal angle: {}".format(angle_gyro, angle_resultat))
         print("Borne moins: {}, Borne plus: {}, angle_gyro < angle_resultat - 10: {}, angle_gyro > angle_resultat + 10: {}".format(angle_resultat-10, angle_resultat+10,angle_gyro < angle_resultat - 10,angle_gyro > angle_resultat + 10))
     move(0, 0)
+    sleep(1)
 
 
 def move(v1, v2):
