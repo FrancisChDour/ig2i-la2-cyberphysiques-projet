@@ -98,8 +98,8 @@ def calibrage():
     move(0, 0)
     sleep(2)
     last_position = readGPS()
-    print("firstPosition : ", firstPosition)
-    print("lastPosition : ", lastPosition)
+    print("firstPosition : ", first_position)
+    print("lastPosition : ", last_position)
     t = teta(first_position[1], first_position[2], last_position[1], last_position[2])
     print("Teta : ", t)
     tetaC=t
