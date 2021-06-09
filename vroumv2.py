@@ -1,22 +1,18 @@
-from pynput import keyboard
+import pygame
 
-def on_press(key):
-    try:
-        print('Alphanumeric key pressed: {0} '.format(
-            key.char))
-    except AttributeError:
-        print('special key pressed: {0}'.format(
-            key))
+pygame.init()
 
-def on_release(key):
-    print('Key released: {0}'.format(
-        key))
-    if key == keyboard.Key.esc:
-        # Stop listener
-        return False
-
-# Collect events until released
-with keyboard.Listener(
-        on_press=on_press,
-        on_release=on_release) as listener:
-    listener.join()
+while 1:
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_z:
+                print("z")
+            if event.key == pygame.K_s:
+                print("s")
+            if event.key == pygame.K_q:
+                print("q")
+            if event.key == pygame.K_d:
+                print("d")
+            if event.key == pygame.K_a:
+                print("a")
