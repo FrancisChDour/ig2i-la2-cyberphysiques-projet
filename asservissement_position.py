@@ -93,7 +93,7 @@ def correction(position_x, position_y, return_position_x, return_position_y):
 def teta(xa, ya, xb, yb):
     x = xb - xa
     y = yb - ya
-    return degrees(acos(y/sqrt(x**2+y**2)) - (pi/2) + pi)
+    return degrees(acos(y/sqrt(x**2+y**2)) - (pi/2))
 
 def calibrage():
     global tetaC
