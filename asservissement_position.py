@@ -87,13 +87,13 @@ def correction(position_x, position_y, return_position_x, return_position_y):
 def teta(xa, ya, xb, yb):
     x = xb - xa
     y = yb - ya
-    return degrees(acos(x/sqrt(x**2+y**2)))
+    return degrees(acos(y/sqrt(x**2+y**2)))
 
 def calibrage():
     global tetaC
     sleep(2)
     first_position = readGPS()
-    move(-200, 200)
+    move(-400, 400)
     sleep(5)
     move(0, 0)
     sleep(2)
@@ -114,15 +114,19 @@ def tourniquet(x, y):
         gyro_response = ser.readline().decode('utf-8').rstrip()
     print(gyro_response)
     angle_gyro = float(gyro_response.split(' ')[2][2::])
-    move(75, 75)
-    while angle_gyro < angle_resultat - 10 or angle_gyro > angle_resultat + 10:
+    move(50, 50)
+    while angle_gyro < angle_resultat - 1 or angle_gyro > angle_resultat + 1:
         gyro_response = ser.readline().decode('utf-8').rstrip()
         while len(gyro_response) < 21:
             gyro_response = ser.readline().decode('utf-8').rstrip()
         angle_gyro = float(gyro_response.split(' ')[2][2::])
         print("Current angle: {}, Goal angle: {}".format(angle_gyro, angle_resultat))
-        print("Borne moins: {}, Borne plus: {}, angle_gyro < angle_resultat - 10: {}, angle_gyro > angle_resultat + 10: {}".format(angle_resultat-10, angle_resultat+10,angle_gyro < angle_resultat - 10,angle_gyro > angle_resultat + 10))
+        position = readGPS()
+        result = position[1:4] + [angle_gyro]
+        print('X:{} Y:{} Z:{} θ:{}'.format(result[0], result[1], result[2], result[3]))
+        #print("Borne moins: {}, Borne plus: {}, angle_gyro < angle_resultat - 10: {}, angle_gyro > angle_resultat + 10: {}".format(angle_resultat-5, angle_resultat+5,angle_gyro < angle_resultat - 5,angle_gyro > angle_resultat + 5))
     move(0, 0)
+    sleep(3)
 
 
 def move(v1, v2):
@@ -132,4 +136,10 @@ setup()
 calibrage()
 sleep(1)
 tourniquet(5, 0)
-main()
+move(-250, 250)
+for i in range (20):
+    position = readGPS()
+    result = position[1:4]
+    print('X:{} Y:{} Z:{}'.format(result[0], result[1], result[2]))
+    sleep(0.5)
+move(0, 0)
