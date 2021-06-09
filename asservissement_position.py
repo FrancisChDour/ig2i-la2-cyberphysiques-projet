@@ -146,10 +146,11 @@ def move(v1, v2):
     ser.write("{},{}".format(-v1,v2).encode('utf-8'))
 
 def droitAuBut(x, y):
+    borne = 0.1
     pos = readGPS()
     print("J'avance")
     move(100,100)
-    while True:
+    while (pos[1] < x +borne and pos[1] > x -borne) and (pos[2] < y +borne and pos[2] > y -borne):
         print("x:{} y:{}".format(pos[1], pos[2]))
         print((pos[1] < x +1 and pos[1] > x -1) and (pos[2] < y +1 and pos[2] > y -1))
         pos = readGPS()
