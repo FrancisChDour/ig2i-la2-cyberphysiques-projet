@@ -150,11 +150,12 @@ def droitAuBut(x, y):
     pos = readGPS()
     print("J'avance")
     move(100,100)
-    print(pos[1] < x +1 and pos[1] > x -1) and (pos[2] < y +1 and pos[2] > y -1)
-    while (pos[1] < x +1 and pos[1] > x -1) and (pos[2] < y +1 and pos[2] > y -1) == False:
+    flag = (pos[1] < x +1 and pos[1] > x -1) and (pos[2] < y +1 and pos[2] > y -1)
+    print(flag)
+    while not flag:
         print("x:{} y:{}".format(pos[1], pos[2]))
-        print((pos[1] < x +1 and pos[1] > x -1) and (pos[2] < y +1 and pos[2] > y -1))
+        flag = (pos[1] < x +1 and pos[1] > x -1) and (pos[2] < y +1 and pos[2] > y -1)
         pos = readGPS()
         sleep(0.1)
-
+    print("Jsuis arrivé")
 main()
