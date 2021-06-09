@@ -93,7 +93,7 @@ def calibrage():
     global tetaC
     sleep(2)
     first_position = readGPS()
-    move(-200, 200)
+    move(-400, 400)
     sleep(5)
     move(0, 0)
     sleep(2)
@@ -137,7 +137,7 @@ calibrage()
 sleep(1)
 tourniquet(5, 0)
 move(-250, 250)
-for i in range (12):
+for i in range (20):
     position = readGPS()
     result = position[1:4]
     print('X:{} Y:{} Z:{} θ:{}'.format(result[0], result[1], result[2], result[3]))
