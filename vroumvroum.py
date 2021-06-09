@@ -1,45 +1,16 @@
 #!/usr/bin/env python3
 
+import keyboard
 from marvelmind import MarvelmindHedge
 from time import sleep
 import sys
 import serial
-from math import cos, sin, acos, sqrt, degrees
-import re
-import keyboard
 
 hedge = None
 ser = None
-tetaC = None
 
-angle_resultat = None
-
-def main():
-    setup()
-    left = 0
-    right = 0
-    while True:
-        if keyboard.read_key() == "z":
-            print("You pressed z")
-            left+=25
-            right+=25
-        if keyboard.read_key() == "s":
-            print("You pressed s")
-            left-=25
-            right-=25
-        if keyboard.read_key() == "d":
-            print("You pressed s")
-            left+=25
-            right-=25
-        if keyboard.read_key() == "q":
-            print("You pressed q")
-            left-=25
-            right+=25
-        if keyboard.read_key() == "a":
-            print("You pressed q")
-            left=0
-            right=0
-        move(left, right)
+left = 0
+right = 0
 
 def setup():
     global hedge
@@ -54,4 +25,20 @@ def setup():
 def move(v1, v2):
     ser.write("{},{}".format(v1,v2).encode('utf-8'))
 
-main()
+while True:
+    k = keyboard.read_key()
+    if(k == "z"):
+        left+=20
+        right-=20
+        move(left, right)
+        print("pressed z")
+    elif(k == "s"):
+        left-=20
+        right+=20
+        move(left, right)
+        print("pressed s")
+    elif(k == "a"):
+        left=0
+        righ=0
+        move(left, right)
+        print("pressed a")
